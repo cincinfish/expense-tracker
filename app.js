@@ -8,6 +8,8 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const port = process.env.PORT
 
+require('./config/mongoose')
+
 app.engine('hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
