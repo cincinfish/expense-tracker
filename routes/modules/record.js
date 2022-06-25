@@ -88,4 +88,17 @@ router.put('/:id', async (req, res) => {
     })
 })
 
+
+//delate
+router.delete('/:id', (req, res) => {
+  const _id = req.params.id
+  console.log(_id)
+  Record.findOneAndDelete({ _id })
+    .then(() => res.redirect('/'))
+    .catch(error => {
+      console.log(error)
+      res.render('/', { error: error.message })
+    })
+})
+
 module.exports = router
