@@ -25,7 +25,7 @@ router.post('/', async (req, res) => {
   if (isFuture(date) === true) {
     errors.push({ message: '請勿輸入未來日期' })
   }
-
+  console.log("categoryId", typeof(categoryId))
   if (errors.length) {
     return res.render('new', {
       errors, name, date, categoryId, amount, categories
