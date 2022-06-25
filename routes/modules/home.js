@@ -13,15 +13,19 @@ router.get('/', async (req, res) => {
     resolve()
   }).then(() => {
     for (let item of record) {
-      Promise.all(Category.findById(item.categoryId).lean().then(category => {
-        item.icon = category.icon
-      }))
+      categoryData.filter(category => {
+        if (JSON.stringify(category._id) === JSON.stringify(item.categoryId)) {
+          item.icon = category.icon
+          return item.icon
+        }
+      })
       item.date = moment(item.date).format('YYYY/MM/DD')
       totalAmount += item.amount
     }
-  }).then(() => {
-    res.render('index', { record, totalAmount })
   })
+    .then(() => {
+      res.render('index', { record, totalAmount })
+    })
 
 })
 
