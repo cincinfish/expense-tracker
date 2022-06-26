@@ -20,12 +20,21 @@
       <div class="container justify-content-between">
         <div>
           <a class="navbar-brand" href="/">
+            {{#if isAuthenticated}}{{user.name}}の家庭記事本
+            {{else}}
             家庭記事本
+            {{/if}}
           </a>
         </div>
-        <a href="/users/logout" type="button" class="btn btn-outline-warning">
+        {{#if isAuthenticated}}
+        <a href="/users/logout" class="btn btn-outline-warning m-2">
           Logout
         </a>
+        {{else}}
+        <a href="/users/login" class="btn btn-outline-warning m-2">
+          Login
+        </a>
+        {{/if}}
       </div>
     </nav>
   </header>
