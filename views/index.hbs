@@ -1,14 +1,15 @@
 <div class="index-container">
   <div class="row">
     <!-- select -->
-    <select class="form-select form-select-lg d-flex " aria-label=".form-select-lg example">
-      <option selected>類別</option>
-      <option value="家居物業">家居物業</option>
-      <option value="交通出行">交通出行</option>
-      <option value="休閒娛樂">休閒娛樂</option>
-      <option value="餐飲食品">餐飲食品</option>
-      <option value="其他">其他</option>
-    </select>
+    <form action="/">
+      <select class="form-select form-select-lg d-flex " aria-label=".form-select-lg example" id="categorySort"
+        name="categorySort" onchange="this.form.submit()">
+        <option value="" selected disabled hidden>類別</option>
+        {{#each categories}}
+        <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+        {{/each}}
+      </select>
+    </form>
     <div class="d-flex justify-content-between mt-5">
       <div class="" style="font-size: 25px;">
         總金額：
@@ -21,7 +22,7 @@
     <ul>
       {{#each record}}
       <li class="me-0 d-flex">
-        <a href="./record/{{this._id}}" class="col-12 text-decoration-none">
+        <div class="col-12 text-decoration-none">
           <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
               <i class="{{this.icon}} fa-xl index-icon m-2"></i>
@@ -36,7 +37,7 @@
             </div>
             <div class="m-2 p-2 text-dark">{{this.amount}}</div>
           </div>
-        </a>
+        </div>
         <div class="col-4 text-center d-flex align-items-center">
           <a href="./record/{{this._id}}/edit" class="btn btn-link p-2 text-dark text-decoration-none">修改</a>
           <form action="./record/{{this._id}}?_method=DELETE" method="POST" onsubmit="return ConfirmDelete()">

@@ -5,15 +5,30 @@ const Record = require('../../models/record')
 const moment = require('moment')
 
 router.get('/', async (req, res) => {
-  const categoryData = await Category.find().sort({ _id: 'asc' }).lean()
-  const record = await Record.find().lean()
+  const categoryId = req.query.categorySort ? req.query.categorySort : ""
+  const categories = await Category.find().sort({ _id: 'asc' }).lean()
+  let record
+  if (categoryId) {
+    const searchKey = { categoryId: { $in: categoryId } }
+    record = await Record.find(searchKey).lean()
+  } 
+  else{
+    record = await Record.find().lean()
+  }
+
   let totalAmount = 0
+  categories.forEach(item => {
+    if (item._id.toString() === categoryId) {
+      item.selected = 'selected'
+    }
+  })
+  
   // 轉換類別、時間
   new Promise(function (resolve) {
     resolve()
   }).then(() => {
     for (let item of record) {
-      categoryData.filter(category => {
+      categories.filter(category => {
         if (JSON.stringify(category._id) === JSON.stringify(item.categoryId)) {
           item.icon = category.icon
           return item.icon
@@ -24,7 +39,7 @@ router.get('/', async (req, res) => {
     }
   })
     .then(() => {
-      res.render('index', { record, totalAmount })
+      res.render('index', { record, totalAmount, categories })
     })
 
 })
