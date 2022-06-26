@@ -1,5 +1,5 @@
 function ConfirmDelete() {
-  if (confirm("確認要刪除此餐廳嗎?")) {
+  if (confirm("確認要刪除此紀錄嗎?")) {
     return true
   }
   return false
