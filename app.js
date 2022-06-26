@@ -29,6 +29,7 @@ app.use(session({
   saveUninitialized: true
 }))
 usePassport(app)
+app.use(bodyParser.json())
 app.use(flash())
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated()
