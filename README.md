@@ -1,5 +1,7 @@
 # Expense Tracker
-![image]()
+<div align=center>
+<img src="https://github.com/cincinfish/expense-tracker/blob/main/views/img/expense-tracker.gif?raw=true" width="400">
+</div>
 
 ## 功能描述
 1. 使用者可以使用名字、email、密碼、確認密碼註冊再登入
