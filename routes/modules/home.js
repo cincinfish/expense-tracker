@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
     record = await Record.find({ $and: [{ userId }, searchKey] }).lean()
   }
   else {
-    record = await Record.find({userId}).lean()
+    record = await Record.find({ userId }).lean()
   }
   let totalAmount = 0
   categories.forEach(item => {
@@ -22,14 +22,13 @@ router.get('/', async (req, res) => {
       item.selected = 'selected'
     }
   })
-
   // 轉換類別、時間
   new Promise(function (resolve) {
     resolve()
   }).then(() => {
     for (let item of record) {
       categories.filter(category => {
-        if (JSON.stringify(category._id) === JSON.stringify(item.categoryId)) {
+        if (category._id.equals(item.categoryId)) {
           item.icon = category.icon
           return item.icon
         }
@@ -41,7 +40,6 @@ router.get('/', async (req, res) => {
     .then(() => {
       res.render('index', { record, totalAmount, categories })
     })
-
 })
 
 
