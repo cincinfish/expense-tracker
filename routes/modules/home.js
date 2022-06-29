@@ -11,10 +11,10 @@ router.get('/', async (req, res) => {
   let record
   if (categoryId) {
     const searchKey = { categoryId }
-    record = await Record.find({ $and: [{ userId }, searchKey] }).lean()
+    record = await Record.find({ $and: [{ userId }, searchKey] }).populate('categoryId').lean()
   }
   else {
-    record = await Record.find({ userId }).lean()
+    record = await Record.find({ userId }).populate('categoryId').lean()
   }
   let totalAmount = 0
   categories.forEach(item => {
@@ -27,12 +27,6 @@ router.get('/', async (req, res) => {
     resolve()
   }).then(() => {
     for (let item of record) {
-      categories.filter(category => {
-        if (category._id.equals(item.categoryId)) {
-          item.icon = category.icon
-          return item.icon
-        }
-      })
       item.date = moment(item.date).format('YYYY/MM/DD')
       totalAmount += item.amount
     }

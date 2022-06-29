@@ -25,7 +25,7 @@
       <label for="categoryId" class="col-sm-2 form-label">類別*</label>
       <div class="col-sm-10">
         <select id="categoryId" name="categoryId" class="form-select">
-          <option selected value="{{record.categoryId}}"></i>{{record.category}}</option>
+          <option selected value="{{record.categoryId._id}}"></i>{{record.categoryId.name}}</option>
           {{#each categories}}
           <option value="{{this._id}}"></i>{{this.name}}</option>
           {{/each}}

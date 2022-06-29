@@ -43,16 +43,10 @@ router.get('/:id/edit', async (req, res) => {
   const _id = req.params.id
   const categoryData = await Category.find().lean()
   return Record.findOne({ userId, _id })
+    .populate('categoryId')
     .lean()
     .then((record) => {
-      categoryData.filter(category => {
-        if (JSON.stringify(category._id) === JSON.stringify(record.categoryId)) {
-          record.category = category.name
-          return record.category
-        }
-      })
       record.date = moment(record.date).format('YYYY-MM-DD')
-
       return record
     }).then((record) => {
       res.render('edit', { record, categories: categoryData })
