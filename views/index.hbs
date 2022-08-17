@@ -9,6 +9,14 @@
         <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
         {{/each}}
       </select>
+      <select class="form-select form-select-lg d-flex mt-2" aria-label=".form-select-lg example" id="yearSort"
+        name="yearSort" onchange="this.form.submit()">
+        <option value="" selected disabled hidden>年份</option>
+        {{#each yearList}}
+        <option value="{{this}}" {{#if yearOption}}selected{{/if}}>{{this}}</option>
+        {{/each}}
+      </select>
+      <a href="/" class="btn btn-outline-secondary mt-2"><i class="fas fa-eraser" title="清除篩選"> 清除篩選</i></a>
     </form>
     <div class="d-flex justify-content-between mt-5">
       <div class="" style="font-size: 25px;">
@@ -20,12 +28,12 @@
     </div>
     <!-- list -->
     <ul>
-      {{#each record}}
+      {{#each records}}
       <li class="me-0 d-flex">
         <div class="col-12 text-decoration-none">
           <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
-              <i class="{{this.categoryId.icon}} fa-xl index-icon m-2"></i>
+              <i class="{{this.category.[0].icon}} fa-xl index-icon m-2"></i>
               <div class="mx-2 align-self-center" style="font-size: 20px; color:#000">
                 <span class="index-info-block">
                   {{this.name}}
