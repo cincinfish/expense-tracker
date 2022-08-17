@@ -2,6 +2,7 @@ const Category = require('../models/category')
 const Record = require('../models/record')
 const moment = require('moment')
 const mongoose = require('mongoose')
+const monthList = require('../public/javascript/month.json').month
 
 const homeController = {
   getRecord: async (req, res, next) => {
@@ -14,6 +15,7 @@ const homeController = {
         CategoryOptionObj = mongoose.Types.ObjectId(req.query.categorySort)
       }
       const yearOption = req.query.yearSort || ""
+      const monthOption = req.query.monthSort || ""
       const categories = await Category.find().sort({ _id: 'asc' }).lean()
 
       let records = await Record.aggregate(
@@ -35,6 +37,7 @@ const homeController = {
               userId,
               categoryId: CategoryOptionObj ? CategoryOptionObj : String,
               year: yearOption ? Number(yearOption) : Number,
+              month: monthOption ? Number(monthOption) : Number
             }
           },
           {
@@ -56,12 +59,14 @@ const homeController = {
         }
       })
       let yearList = new Set()
+      //let monthList = new Set()
       for (let item of records) {
         yearList = yearList.add(new Date(item.date).getFullYear())
+        //monthList = monthList.add(new Date(item.date).getMonth() + 1)
         item.date = moment(item.date).format('YYYY/MM/DD')
         totalAmount += item.amount
       }
-      res.render('index', { records, totalAmount, categories, yearList })
+      res.render('index', { records, totalAmount, categories, yearList, monthList })
     } catch (err) {
       next(err)
     }

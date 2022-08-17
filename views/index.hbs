@@ -16,6 +16,13 @@
         <option value="{{this}}" {{#if yearOption}}selected{{/if}}>{{this}}</option>
         {{/each}}
       </select>
+      <select class="form-select form-select-lg d-flex mt-2" aria-label=".form-select-lg example" id="monthSort"
+        name="monthSort" onchange="this.form.submit()">
+        <option value="" selected disabled hidden>月份</option>
+        {{#each monthList}}
+        <option value="{{this.value}}" {{#if monthOption}}selected{{/if}}>{{this.name}}</option>
+        {{/each}}
+      </select>
       <a href="/" class="btn btn-outline-secondary mt-2"><i class="fas fa-eraser" title="清除篩選"> 清除篩選</i></a>
     </form>
     <div class="d-flex justify-content-between mt-5">
